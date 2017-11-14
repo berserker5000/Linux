@@ -1,0 +1,37 @@
+DEFAULT      vesamenu.c32
+PROMPT       0
+NOESCAPE     0
+ALLOWOPTIONS 0
+# Timeout in units of 1/10 s
+menu include pxelinux.cfg/grafic.conf
+menu title pxe boot menu
+
+LABEL wds
+ TIMEOUT 300
+ MENU       DEFAULT
+ #MENU PASSWD locAdmiN12
+ MENU       LABEL Windows Deployment Services
+ KERNEL     pxeboot.0
+
+LABEL tools
+    #MENU PASSWD locAdmiN12
+    MENU LABEL Tools
+    KERNEL vesamenu.c32
+    APPEND pxelinux.cfg/tools.menu
+
+LABEL avp
+    MENU LABEL AVP
+    KERNEL vesamenu.c32
+    APPEND pxelinux.cfg/avp.menu
+
+
+LABEL linux
+    MENU LABEL Install Linux
+   # MENU PASSWD locAdmiN12
+    KERNEL vesamenu.c32
+    APPEND pxelinux.cfg/linux.menu
+
+
+LABEL local
+ MENU LABEL Boot from Harddisk
+ LOCALBOOT 0 

@@ -1,0 +1,49 @@
+MENU TITLE Partitioning and formating tools
+
+menu include pxelinux.cfg/grafic.conf
+
+LABEL gparted
+    MENU LABEL GParted Live
+    kernel \Images\gparted\live\vmlinuz
+    append initrd=\Images\gparted\live\initrd.img boot=live config components union=overlay username=user noswap noeject ip= vga=788 noprompt quiet fetch=http://172.18.2.9/Images/GParted/live/filesystem.squashfs
+    TEXT HELP
+Format, create, delete martitions. Manage flags. Based on Linux.
+	ENDTEXT
+
+
+LABEL Acronis
+	MENU LABEL Acronis Live CD
+	KERNEL memdisk iso
+	APPEND initrd=\Images\acronis\acronis.iso
+
+LABEL Diskcrptor
+	MENU LABEL Diskcrptor
+	KERNEL memdisk iso
+	APPEND initrd=\Images\Diskcrptor.iso quiet
+
+LABEL KillDisk
+	MENU LABEL KillDisk
+	KERNEL memdisk iso
+	APPEND initrd=\Images\KillDisk.iso quiet
+
+
+LABEL macriumiso
+	MENU LABEL Macrium
+	KERNEL memdisk iso
+	APPEND initrd=\Images\macrium\macrium.iso
+
+LABEL Dban
+	MENU LABEL DBan (LLF Tool)
+	KERNEL /Images/Dban/dban.bzi
+	APPEND nuke="dwipe --autonuke"
+	text help
+	Low level format tool.
+	endtext
+
+menu separator
+
+
+LABEL Main Menu
+    MENU LABEL Back to Tools Menu
+    KERNEL vesamenu.c32
+    APPEND pxelinux.cfg/tools.menu

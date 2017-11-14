@@ -1,0 +1,70 @@
+MENU TITLE Tools
+
+menu include pxelinux.cfg/grafic.conf
+
+LABEL PC Diagnostic
+    MENU LABEL PC Diagnostic
+    KERNEL vesamenu.c32
+    APPEND pxelinux.cfg/diagnostic.menu
+
+label part and format
+menu label Partitioning and formating tools
+kernel vesamenu.c32
+append pxelinux.cfg/paf.menu
+
+label bios
+menu label Bios tools
+kernel vesamenu.c32
+append pxelinux.cfg/bios.menu
+
+menu separator
+
+LABEL WPE
+	MENU LABEL Windows Password Editor
+	TEXT HELP
+	Based on linux. No graphic mode.
+	ENDTEXT
+	KERNEL \images\winpassed\vmlinuz
+	append rw vga=1 initrd=\images\winpassed\initrd.cgz,\images\winpassed\scsi.cgz loglevel=1
+
+LABEL bootpass
+	MENU LABEL BootPass
+	TEXT HELP
+	Based on Windows 7. Have Regestry editor.
+	ENDTEXT
+	KERNEL memdisk iso
+	APPEND initrd=\Images\BootPass.iso quiet
+
+
+LABEL AntiSMS
+	MENU LABEL AntiSMS
+	KERNEL memdisk iso
+	APPEND initrd=\Images\antisms.iso quiet
+
+LABEL Clonezilla Live
+    MENU LABEL Clonezilla Live
+    kernel \Images\Clonezilla\live\vmlinuz
+    append initrd=\Images\Clonezilla\live\initrd.img boot=live live-config noswap nolocales edd=on nomodeset quiet ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_keymap="NONE" ocs_live_batch="no" ocs_lang="en_US.UTF-8" vga=788 nosplash fetch=http://172.18.2.9/Images/Clonezilla/live/filesystem.squashfs
+
+Label Fix "NTLDR is Missing"
+	menu Label Fix "NTLDR is Missing"
+	kernel memdisk
+	append initrd=\Images\ntldr.gz
+
+Label Trinity Rescue Kit
+kernel memdisk iso
+append initrd=\Images\trinity.iso
+
+Label Trinity Rescue Kit1
+kernel \Images\trinity\kernel.trk
+append initrd=\Images\trinity\initrd.trk ramdisk_size=65536 root=/dev/ram0 vga=788 splash=verbose pci=conf1 trkinmem
+
+
+
+
+menu separator
+  
+LABEL Main Menu
+    MENU LABEL Back to Main Menu
+    KERNEL vesamenu.c32
+    APPEND pxelinux.cfg/default

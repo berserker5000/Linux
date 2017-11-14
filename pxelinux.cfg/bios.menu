@@ -1,0 +1,39 @@
+MENU TITLE Bios Tools
+
+menu include pxelinux.cfg/grafic.conf
+
+Label !Biso
+MENU LABEL BIOS V3.20
+TEXT HELP
+ Decrypt the passwords used in some most common BIOS (IBM, AMI, Award and
+ Phoenix). Save/restore BIOS settings. Performs brutal attacks ("blasters")
+ which remove passwords from a lot of BIOSes. CMOS hex editor.
+ENDTEXT
+kernel memdisk
+append initrd=/images/testtools/xbios.img.gz
+
+LABEL CMOSPWD
+MENU LABEL CMOSPWD V5.0
+TEXT HELP
+ Decrypt password stored in BIOS CMOS. Works with the following BIOS: ACER/IBM,
+ AMI, AMI WinBIOS 2.5, Award 4.5x/4.6x/6.0, Compaq, Packard Bell,IBM (PS/2,
+ Activa, Thinkpad), Phoenix, Gateway Solo, Toshiba, Zenith AMI etc.
+ENDTEXT
+kernel memdisk
+APPEND initrd=/images/testtools/fdubcd.img.gz floppy raw c=7 h=255 s=63 ubcdcmd=cmospwd
+
+LABEL WipeCMOS
+MENU LABEL WipeCMOS V1.2
+TEXT HELP
+ Clear all CMOS settings to recover from lost passwords or corrupt BIOS
+ settings.
+ENDTEXT
+kernel memdisk
+APPEND initrd=/images/testtools/fdubcd.img.gz floppy raw c=7 h=255 s=63 ubcdcmd=wipecmos
+
+menu separator
+
+LABEL Main Menu
+    MENU LABEL Back to Tools Menu
+    KERNEL vesamenu.c32
+    APPEND pxelinux.cfg/tools.menu
